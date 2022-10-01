@@ -1,0 +1,140 @@
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #ffffff;
+  min-width: fit-content;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+:root {
+  --ivory_color: #fbfff1;
+  --dark_color: #1f1f1f;
+  --grey_color: #807f81;
+  --light-grey_color: #aaa9ab;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0px;
+  font-family: "Nunito", sans-serif;
+}
+
+.title {
+  height: 30px;
+  margin: 40px 0px;
+  color: #3c3744;
+}
+
+.subtitle {
+  height: 30px;
+  margin: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  color: var(--ivory_color);
+}
+
+main {
+  height: 100vh;
+  width: 100%;
+}
+
+.main-area {
+  background-color: #3c3744;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main-area__sector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-area__sector:nth-child(2) {
+  margin-left: 30px;
+}
+
+.main-area__sector-box {
+  display: flex;
+}
+
+.main-area__user-container {
+  width: 360px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-area__user-box {
+  width: 300px;
+  height: 180px;
+  margin: 20px 0px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.main-area__memo-box {
+  width: 300px;
+  height: 400px;
+  margin: 20px 0px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b4c5e4;
+}
+
+.main-area__memo {
+  width: 280px;
+  height: 380px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.main-area__calender-box {
+  width: 300px;
+  height: 300px;
+  margin: 20px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b4c5e4;
+}
+
+.main-area__calender {
+  width: 280px;
+  height: 280px;
+  margin: 20px 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
