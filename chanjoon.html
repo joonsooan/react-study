@@ -3,61 +3,56 @@
 	<body>
 		<div id="root"></div>
 	</body>
-	<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 	<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 	<script type="text/babel">
 		const root = document.getElementById("root");
-		const Title = () => (
-			null
-		);
-		// const h3 = React.createElement(
-		// 	"h3",
-		// 	{
-		// 		onMouseEnter: () => console.log("mouse enter")
-		// 	},
-		// 	"Hello I'm a span");		// create <span id = "sexy-span">Hello I'm a span</span>
-		const Button = () => (
-			null
-		);
-		// const btn = React.createElement(
-		// 	"button",
-		// 	{
-		// 		onClick: () => console.log("I'm clicked"),
-		// 		style: {
-		// 			color: "white",
-		// 			backgroundColor: "blue",
-		// 		}
-		// 	},
-		// 	"Click me");
-			// let counter = 0;
-			// function countUp() {
-			// 	counter = counter + 1;
-			// };
-		function App() {
+		function MinutesToHours() {
 			const [counter, upCount] = React.useState(0);
+			const [flipped, setFlipped] = React.useState(true);
+
 			const onClick = () => {
 				// upCount(counter + 1);			// change states, rerender specific state only
 				upCount( (counter) => counter + 1);
 			};
 
-			const [minutes, setMinutes] = React.useState();
+			// const [minutes, setMinutes] = React.useState();
+			// const [hours, setHours] = React.useState();
+			const [amount, setAmount] = React.useState();
 			const onChange = (event) => {
-				setMinutes(event.target.value);
+				// setMinutes(event.target.value);
+				// setHours(event.target.value);
+				setAmount(event.target.value);
 			};
+			/*
 			const resetMin = () => setMinutes(0);
+			const resetHour = () => setHours(0);
+			const resetTime = () => {
+				setMinutes(0);
+				setHours(0);
+			}
+			*/
+			const reset = () => setAmount(0);
+			// How to reset value? not 0 but to the placeholder value
 			const resetCount = () => upCount(0);
+
+			const onFlip = () => {
+				setFlipped((current) => !current);
+				reset();
+			}
 
 			return(
 				<div>
-					<h1>Super Converter</h1>
 					<div>
 						<label htmlFor="minutes" style={{ margin: 10, fontFamily: 'Fantasy'}}>Minutes</label>
 						<input
-							value={minutes}
+							value={flipped ? amount : Math.round(amount*60)}
 							id="minutes"
 							placeholder="Minutes"
 							type="number"
+							disabled={!flipped} // flipped === true; JSX Syntax
 							onChange={onChange}
 						/>
 					</div>
@@ -65,15 +60,17 @@
 					<div>
 						<label htmlFor="hours" style={{ margin: 10, fontWeight: 'bold'}}>Hours</label>
 						<input
-							value={Math.round(minutes/60)}
+							value={flipped ? Math.round(amount/60) : amount}
 							id="hours"
 							placeholder="Hours"
 							type="number"
-							disabled
+							disabled={flipped} // flipped === false; JSX Syntax
 							style={{margin: 7}}
+							onChange={onChange}
 						/>
 					</div>
-					<button onClick={resetMin}>Reset</button>
+					<button onClick={reset}>Reset</button>
+					<button onClick={onFlip}>{!flipped ? "Flip to Minute" : "Flip to Hour"}</button>
 
 					<h3>
 						Total clicks : {counter}
@@ -83,6 +80,77 @@
 					</button>
 					<button onClick={resetCount}>Reset</button>
 				</div> // function Title(should be Uppercase) & Button
+			)
+		}
+		function KmToMiles() {
+			return(
+				<h3>Km to Miles</h3>
+			)
+		}
+		
+
+		let cnt = 0;
+		function Btn({whatis = blank, prop_onClick, fontSize = 12}){
+			console.log(whatis);
+			return (
+				<button onClick={prop_onClick}
+				style={{
+					backgroundColor: "skyblue",
+					color: "white",
+					fontWeight: "bold",
+					padding: "10px 20px",
+					border: 0,
+					borderRadius: 10,
+					margin: "10px",
+					fontSize
+				}}
+				>
+					{whatis}
+				</button>
+			)
+		}
+		const MemorizedBtn = React.memo(Btn);
+		Btn.propTypes = {
+			whatis: PropTypes.string.isRequired,
+			fontSize: PropTypes.number,
+			prop_onClick: PropTypes.func
+		}
+
+		function App() {
+			const [value, setValue] = React.useState("Save Changes");
+			
+			const changeValue = () => {
+				console.log(cnt)
+				if (cnt % 2 == 0)
+				{
+					setValue("Revert Changes");
+					return cnt++
+				}
+				else (cnt % 2 == 1)
+				{
+					setValue("Save Changes");
+					return cnt++
+				}
+			}
+			// const [index, setIndex] = React.useState("null");
+			// const onSelect = (event) => {
+			// 	setIndex(event.target.value);
+			// };
+			return(
+				// <div>
+				// 	<h1>Super Converter</h1>
+				// 	<select value={index} onChange={onSelect}>
+				// 		<option value="null">Select your Unit Converter</option>
+				// 		<option value="0">Minutes & Hours</option>
+				// 		<option value="1">Km & Miles</option>
+				// 	</select>
+				// 	<hr />
+				// 	{index === "0" ? <MinutesToHours /> : null}
+				// </div> // function Title(should be Uppercase) & Button
+				<div>
+					<Btn whatis={value} prop_onClick={changeValue} />
+					<Btn whatis="Continue" fontSize={18} />
+				</div>
 			)
 		};
 		// const container = React.createElement("div", null, [Title, Button]);
